@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ana Claudia Tortas</title>
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍰</text></svg>">
+
+<link rel="stylesheet" href="/static/style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        🍰 Ana Claudia Tortas
+    </div>
+
+    <nav>
+        <a href="#galeria">Galeria</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#contato">Contato</a>
+    </nav>
+
+</header>
+
+<section class="hero">
+
+    <div class="hero-text">
+
+        <span class="tag">
+            Tortas artesanais feitas com carinho
+        </span>
+
+        <h1>
+            Sabores que transformam momentos em lembranças especiais
+        </h1>
+
+        <p>
+            Bolos e tortas preparados artesanalmente com ingredientes selecionados para tornar qualquer ocasião ainda mais especial.
+        </p>
+
+        <a href="https://wa.me/5511986239678"
+           target="_blank"
+           class="btn">
+            Fazer Encomenda
+        </a>
+
+    </div>
+
+    <div class="hero-img">
+        <img src="/static/fotos_bolos/foto_ana2.jpeg" alt="Ana Claudia">
+    </div>
+
+</section>
+
+<section id="galeria" class="galeria">
+
+    <div class="titulo">
+        <span>GALERIA</span>
+        <h2>Conheça algumas delícias   </h2>
+    </div>
+
+    <div class="mosaic">
+
+        <img src="/static/fotos_bolos/foto3.0.jpeg">
+        <img src="/static/fotos_bolos/foto11.jpeg">
+        <img src="/static/fotos_bolos/foto10.jpeg">
+        <img src="/static/fotos_bolos/foto9.jpeg">
+        <img src="/static/fotos_bolos/foto6.jpeg">
+        <img src="/static/fotos_bolos/foto8.jpeg">
+
+    </div>
+
+</section>
+
+<section id="sobre" class="sobre">
+
+    <div class="sobre-img">
+        <img src="/static/fotos_bolos/foto_ana1.jpeg">
+    </div>
+
+    <div class="sobre-text">
+
+        <span>QUEM É ANA CLAUDIA</span>
+
+        <h2>Paixão pela confeitaria</h2>
+
+        <p>
+            Minha paixão pela confeitaria começou ainda na adolescência, quando fazia bombons, cones trufados e bolos para vender. Com o tempo, a vida mudou, vieram a família e os filhos, mas o amor pelos doces nunca desapareceu.
+        </p>
+
+        <p>
+            Foi então que decidi transformar esse sonho em realidade. Meu primeiro Festival de Fatias aconteceu no quintal da minha casa, com o apoio da minha mãe e da minha irmã. Desde então, cada cliente conquistado fortaleceu ainda mais minha certeza de que estou no caminho certo.
+        </p>
+        <p>
+           Hoje, cada torta carrega um pouco dessa história, preparada com carinho, dedicação e gratidão por todos que fazem parte dela.
+
+    </div>
+
+</section>
+
+<section class="eventos">
+
+    <div class="titulo-secao">
+        <span>PRÓXIMAS FEIRAS</span>
+        <h2>Onde estaremos</h2>
+        <p>Venha experimentar e conhecer nossos sabores.</p>
+    </div>
+
+    <div class="eventos-grid">
+
+        {% for evento in eventos %}
+
+        <div class="evento-card">
+
+            <div class="evento-info">
+
+                <h3>{{ evento[1] }}</h3>
+
+                <p>📅 {{ evento[2] }}</p>
+
+                <p>⏰ {{ evento[3] }}</p>
+
+                <p>📍 {{ evento[4] }}</p>
+
+                <a
+                    href="{{ evento[5] }}"
+                    target="_blank"
+                    class="btn-mapa">
+
+                    Ver localização
+
+                </a>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+<section id="contato" class="contato">
+
+    <h2>Faça sua encomenda</h2>
+
+    <p>
+        Entre em contato pelo WhatsApp ou acompanhe as novidades pelo Instagram.
+    </p>
+
+    <div class="botoes">
+
+        <a href="https://wa.me/5511986239678"
+           target="_blank"
+           class="btn">
+            WhatsApp
+        </a>
+
+        <a href="https://www.instagram.com/anaclaudia_tortas/"
+           target="_blank"
+           class="btn-instagram">
+            Instagram
+        </a>
+
+    </div>
+
+</section>
+
+<footer>
+<a href="/admin" class="admin-btn">
+    ⚙️
+</a>
+    <div class="footer-container">
+
+        <div class="footer-info">
+
+            <h3>🍰 Ana Claudia Tortas</h3>
+
+            <p>
+                Tortas artesanais feitas com carinho para tornar seus momentos ainda mais especiais.
+            </p>
+
+        </div>
+
+        <div class="footer-contato">
+
+            <h4>Contato</h4>
+
+            <p>📱 (11) 98623-9678</p>
+
+            <p>📍 Jaguariúna - SP</p>
+
+        </div>
+
+        <div class="footer-redes">
+
+            <h4>Redes Sociais</h4>
+
+            <a href="https://www.instagram.com/anaclaudia_tortas/" target="_blank">
+                📸 @anaclaudia_tortas
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        © 2026 Ana Claudia Tortas • Todos os direitos reservados
+    </div>
+
+</footer>
+
+</body>
+</html>

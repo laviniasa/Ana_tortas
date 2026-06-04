@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Painel Administrativo</title>
+
+<style>
+
+body{
+    font-family:Arial, sans-serif;
+    max-width:900px;
+    margin:40px auto;
+    padding:20px;
+}
+
+h1{
+    color:#8e44ad;
+}
+
+form{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-bottom:40px;
+}
+
+input{
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:8px;
+}
+
+button{
+    background:#8e44ad;
+    color:white;
+    border:none;
+    padding:12px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.evento{
+    background:#f8f8f8;
+    padding:15px;
+    margin-bottom:15px;
+    border-radius:10px;
+}
+
+.excluir{
+    color:red;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.voltar{
+    display:inline-block;
+    margin-bottom:20px;
+    padding:10px 18px;
+    background:#f1e8fa;
+    color:#8e44ad;
+    text-decoration:none;
+    border-radius:8px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.voltar:hover{
+    background:#8e44ad;
+    color:white;
+}
+
+
+</style>
+
+</head>
+<body>
+
+<a href="/" class="voltar">
+    ← Voltar para o Site
+</a>
+
+<h1>Gerenciar Feiras</h1>
+
+<form action="/salvar-evento" method="POST">
+
+    <input
+        type="text"
+        name="nome"
+        placeholder="Nome da feira"
+        required>
+
+    <input
+        type="date"
+        name="data"
+        required>
+
+    <input
+        type="text"
+        name="horario"
+        placeholder="10h às 18h"
+        required>
+
+    <input
+        type="text"
+        name="endereco"
+        placeholder="Boulevard Centro Cultural"
+        required>
+
+    <input
+        type="url"
+        name="maps_url"
+        placeholder="Link do Google Maps"
+        required>
+
+    <button type="submit">
+        Salvar Evento
+    </button>
+
+</form>
+
+<hr>
+
+<h2>Eventos cadastrados</h2>
+
+{% for evento in eventos %}
+
+<div class="evento">
+
+    <h3>{{ evento[1] }}</h3>
+
+    <p><strong>Data:</strong> {{ evento[2] }}</p>
+
+    <p><strong>Horário:</strong> {{ evento[3] }}</p>
+
+    <p><strong>Local:</strong> {{ evento[4] }}</p>
+
+    <a
+        href="/excluir/{{ evento[0] }}"
+        class="excluir">
+
+        Excluir
+
+    </a>
+
+</div>
+
+{% endfor %}
+
+</body>
+</html>
