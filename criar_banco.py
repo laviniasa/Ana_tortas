@@ -11,7 +11,8 @@ CREATE TABLE IF NOT EXISTS eventos(
     data TEXT NOT NULL,
     horario TEXT,
     endereco TEXT NOT NULL,
-    maps_url TEXT NOT NULL
+    maps_url TEXT NOT NULL,
+    foto TEXT
 )
 """)
 
