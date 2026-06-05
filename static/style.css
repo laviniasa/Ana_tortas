@@ -376,9 +376,9 @@ footer{
 .evento-card{
     background:white;
     border-radius:20px;
-    padding:25px;
+    padding:30px;
     display:flex;
-    gap:25px;
+    gap:30px;
     align-items:center;
     box-shadow:0 10px 30px rgba(0,0,0,.08);
 }
@@ -466,4 +466,71 @@ footer{
 
 .admin-btn:hover{
     transform:scale(1.1);
+}
+
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+.modal-content{
+    background:white;
+    width:420px;
+    max-width:90%;
+    padding:30px;
+    border-radius:20px;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    position:relative;
+}
+
+.modal-content h2{
+    font-size: 2.5rem;
+    line-height: 1.1;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #8e44ad;
+}
+.modal-content input{
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:10px;
+}
+
+.modal-content button{
+    background:#8e44ad;
+    color:white;
+    border:none;
+    padding:12px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.fechar{
+    position:absolute;
+    top:10px;
+    right:15px;
+    font-size:24px;
+    cursor:pointer;
+}
+
+.subtitulo-modal{
+    text-align:center;
+    color:#777;
+    margin-top:-10px;
+    margin-bottom:15px;
+}
+
+.foto-evento{
+    width:180px;
+    height:180px;
+    object-fit:cover;
+    border-radius:18px;
 }
