@@ -121,6 +121,14 @@
 
         <div class="evento-card">
 
+            {% if evento[6] %}
+
+            <img
+                src="{{ url_for('static', filename='eventos/' + evento[6]) }}"
+                class="foto-evento">
+
+            {% endif %}
+
             <div class="evento-info">
 
                 <h3>{{ evento[1] }}</h3>
@@ -177,9 +185,9 @@
 </section>
 
 <footer>
-<a href="/admin" class="admin-btn">
+<div class="admin-btn" onclick="abrirModal()">
     ⚙️
-</a>
+</div>
     <div class="footer-container">
 
         <div class="footer-info">
@@ -219,6 +227,54 @@
     </div>
 
 </footer>
+
+<div id="modalLogin" class="modal">
+
+    <div class="modal-content">
+
+        <span class="fechar" onclick="fecharModal()">
+            &times;
+        </span>
+
+        <h2>Painel Admin</h2>
+
+        <form action="/login" method="POST">
+
+            <input
+                type="text"
+                name="usuario"
+                placeholder="Usuário"
+                required>
+
+            <input
+                type="password"
+                name="senha"
+                placeholder="Senha"
+                required>
+
+            <button type="submit">
+                Entrar
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+
+function abrirModal(){
+    document.getElementById("modalLogin").style.display = "flex";
+}
+
+function fecharModal(){
+    document.getElementById("modalLogin").style.display = "none";
+}
+
+
+</script>
+
 
 </body>
 </html>
