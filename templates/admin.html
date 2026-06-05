@@ -77,13 +77,16 @@ button{
 </head>
 <body>
 
-<a href="/" class="voltar">
-    ← Voltar para o Site
+<a href="/logout" class="voltar">
+     ← Sair
 </a>
+
 
 <h1>Gerenciar Feiras</h1>
 
-<form action="/salvar-evento" method="POST">
+<form action="/salvar-evento"
+      method="POST"
+      enctype="multipart/form-data">
 
     <input
         type="text"
@@ -91,9 +94,16 @@ button{
         placeholder="Nome da feira"
         required>
 
+    <label>Data Inicial</label>
     <input
         type="date"
-        name="data"
+        name="data_inicio"
+        required>
+
+    <label>Data Final</label>
+    <input
+        type="date"
+        name="data_fim"
         required>
 
     <input
@@ -113,6 +123,13 @@ button{
         name="maps_url"
         placeholder="Link do Google Maps"
         required>
+
+        <label>Foto da Feira</label>
+
+    <input
+        type="file"
+        name="foto"
+        accept="image/*">
 
     <button type="submit">
         Salvar Evento
