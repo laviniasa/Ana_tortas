@@ -9,6 +9,17 @@ import traceback
 app = Flask(__name__)
 app.secret_key = "ana_tortas_2026"
 
+conn = sqlite3.connect("eventos.db")
+cursor = conn.cursor()
+
+cursor.execute("""
+ALTER TABLE eventos
+ADD COLUMN foto TEXT
+""")
+
+conn.commit()
+conn.close()
+
 @app.route("/")
 def index():
 
