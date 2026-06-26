@@ -3,22 +3,10 @@ from werkzeug.utils import secure_filename
 from datetime import datetime
 import sqlite3
 import os
-import traceback
 
 
 app = Flask(__name__)
 app.secret_key = "ana_tortas_2026"
-
-conn = sqlite3.connect("eventos.db")
-cursor = conn.cursor()
-
-cursor.execute("""
-ALTER TABLE eventos
-ADD COLUMN foto TEXT
-""")
-
-conn.commit()
-conn.close()
 
 @app.route("/")
 def index():
@@ -90,92 +78,84 @@ def logout():
 @app.route("/salvar-evento", methods=["POST"])
 def salvar_evento():
 
-    try:
+    if not session.get("logado"):
+        return redirect("/")
 
-        if not session.get("logado"):
-            return redirect("/")
+    nome = request.form["nome"]
 
-        nome = request.form["nome"]
+    data_inicio = request.form["data_inicio"]
+    data_fim = request.form["data_fim"]
 
-        data_inicio = request.form["data_inicio"]
-        data_fim = request.form["data_fim"]
+    meses = [
+        "Janeiro", "Fevereiro", "Março", "Abril",
+        "Maio", "Junho", "Julho", "Agosto",
+        "Setembro", "Outubro", "Novembro", "Dezembro"
+    ]
 
-        meses = [
-            "Janeiro", "Fevereiro", "Março", "Abril",
-            "Maio", "Junho", "Julho", "Agosto",
-            "Setembro", "Outubro", "Novembro", "Dezembro"
-        ]
+    inicio = datetime.strptime(data_inicio, "%Y-%m-%d")
+    fim = datetime.strptime(data_fim, "%Y-%m-%d")
 
-        inicio = datetime.strptime(data_inicio, "%Y-%m-%d")
-        fim = datetime.strptime(data_fim, "%Y-%m-%d")
+    if data_inicio == data_fim:
+        data = inicio.strftime("%d/%m/%Y")
 
-        if data_inicio == data_fim:
-            data = inicio.strftime("%d/%m/%Y")
+    elif inicio.month == fim.month and inicio.year == fim.year:
+        data = f"{inicio.day:02d} a {fim.day:02d} de {meses[inicio.month-1]}"
 
-        elif inicio.month == fim.month and inicio.year == fim.year:
-            data = f"{inicio.day:02d} a {fim.day:02d} de {meses[inicio.month-1]}"
-
-        else:
-            data = (
-                f"{inicio.day:02d}/{inicio.month:02d} "
-                f"a "
-                f"{fim.day:02d}/{fim.month:02d}"
-            )
-
-        horario = request.form["horario"]
-        endereco = request.form["endereco"]
-        maps_url = request.form["maps_url"]
-
-        foto = request.files.get("foto")
-
-        nome_foto = ""
-
-        if foto and foto.filename:
-
-            pasta_eventos = os.path.join("static", "eventos")
-
-            os.makedirs(pasta_eventos, exist_ok=True)
-
-            nome_foto = secure_filename(foto.filename)
-
-            foto.save(
-                os.path.join(
-                    pasta_eventos,
-                    nome_foto
-                )
-            )
-
-        conn = sqlite3.connect("eventos.db")
-
-        cursor = conn.cursor()
-
-        cursor.execute("""
-        INSERT INTO eventos(
-            nome,
-            data,
-            horario,
-            endereco,
-            maps_url,
-            foto
+    else:
+        data = (
+            f"{inicio.day:02d}/{inicio.month:02d} "
+            f"a "
+            f"{fim.day:02d}/{fim.month:02d}"
         )
-        VALUES(?,?,?,?,?,?)
-        """,
-        (
-            nome,
-            data,
-            horario,
-            endereco,
-            maps_url,
-            nome_foto
-        ))
 
-        conn.commit()
-        conn.close()
+    horario = request.form["horario"]
+    endereco = request.form["endereco"]
+    maps_url = request.form["maps_url"]
 
-        return redirect("/admin")
+    foto = request.files["foto"]
 
-    except Exception as e:
-        return f"<pre>{traceback.format_exc()}</pre>"
+    nome_foto = ""
+
+    if foto and foto.filename != "":
+
+        nome_foto = secure_filename(foto.filename)
+
+        foto.save(
+            os.path.join(
+                "static",
+                "eventos",
+                nome_foto
+            )
+        )
+
+    conn = sqlite3.connect("eventos.db")
+
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    INSERT INTO eventos(
+        nome,
+        data,
+        horario,
+        endereco,
+        maps_url,
+        foto
+    )
+    VALUES(?,?,?,?,?,?)
+    """,
+    (
+        nome,
+        data,
+        horario,
+        endereco,
+        maps_url,
+        nome_foto
+    ))
+
+    conn.commit()
+    conn.close()
+
+    return redirect("/admin")
 
 @app.route("/excluir/<int:id>")
 def excluir(id):
